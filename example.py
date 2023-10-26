@@ -30,5 +30,5 @@ table_of_contents='''第1部分 数理逻辑 1
  第19章 初等数论 371'''
 
 
-addtoc(table_of_contents,"/Users/wangran/Desktop/123f.pdf",9)
+addtoc(table_of_contents,"离散数学",9)
 
