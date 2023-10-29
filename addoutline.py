@@ -56,7 +56,9 @@ def parseline(s):
     a line is composed as \n
     {space}*n+{title}+{space}+{page number}\n
     return value is a tuple int,str,int"""
+
     space_length = 0
+    # print(f"process>>>{s}<<<")
     #count how much space from beginning
     for c in s:
         if c == " ":
@@ -66,9 +68,14 @@ def parseline(s):
             break
     #extract page numer from end
     page_number_index = len(s)-1
-    while s[page_number_index] != ' ':
-        page_number_index = page_number_index-1
+    try:
+        while s[page_number_index] != ' ':
+            page_number_index = page_number_index-1
     #remaining part is title
+    except:
+        print("error!")
+        
+        exit()
     title = s[space_length:page_number_index]
     page_number = int(s[page_number_index+1:])
     # print(f">{s}< --> {space_length,title,page_number}")
@@ -110,7 +117,7 @@ def strtotoc(tocstring, offset=0):
     return root
 
 
-def addtoc(tocstring:str, pdfname:str, offset:int=0):
+def addtoc(tocstring:str, pdfname:str, offset:int=0,outputname="added.pdf"):
     '''given a table of contents string and pdf filename\n
     add clickable table of contents to pdf file
     some times page number may point to wrong position, add offset.
@@ -121,5 +128,5 @@ def addtoc(tocstring:str, pdfname:str, offset:int=0):
     table_of_content = strtotoc(tocstring, offset=offset)
     table_of_content.hierarchy()
     table_of_content.add_outline_to_writer(writer)
-    writer.write('added.pdf')
+    writer.write(outputname)
 

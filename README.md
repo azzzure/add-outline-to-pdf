@@ -1,9 +1,17 @@
 # add-outline-to-pdf
 
-a simple python program to manully add outline to scaned pdf file
+一个非常简单的给扫描pdf文件添加目录的python脚本
 
-First you have to write table of contents by hand like following,use space to represent levels.
+# 概览
 
+这个脚本基于pypdf这个库。
+
+会读取目录字符串，将他们放进一颗目录树中。
+
+按照目录的结构，把每条目录写进pdfwriter中，另存为工作目录下的added.pdf
+
+# 目录字符串
+目录字符串是形如
 ```
 第1部分 数理逻辑 1
  第1章 命题逻辑的基本概念 3
@@ -16,27 +24,23 @@ First you have to write table of contents by hand like following,use space to re
  第5章 一阶逻辑等值演算与推理 73
 第2部分 集合论 89
  第6章 集合代数 91
- 第7章 二元关系 110
- 第8章 函数 145
-第3部分 代数结构 175
- 第9章 代数系统 177
- 第10章 群与环 194
- 第11章 格与布尔代数 220
-第4部分 组合数学 235
- 第12章 基本的组合计数公式 237
- 第13章 递推方程与生成函数 253
-第5部分 图论 291
- 第14章 图的基本概念 293
- 第15章 欧拉图与哈密顿图 316
- 第16章 树 329
- 第17章 平面图 344
- 第18章 支配集、覆盖集、独立集、匹配与着色 356
-第6部分 初等数论 369
- 第19章 初等数论 371
 ```
-Then just revoke `addtoc()`
+这样的段落。
+每一行由层次、标题、页码组成。
+开头空格的数量代表了目录的层级。层级只能逐个增加。
+空格之后是标题。
+页码是从后往前解析的，所以页码和标题之间必须有一个空格。
 
-you can see a example in `example.py`
 
-then 
-![image](https://github.com/azzzure/add-outline-to-pdf/blob/main/picture/Snipaste_added.pdf2023-10-26_01-58-26.png)
+目录字符串可以手动输入，可以自己添加原本目录没有条目。
+
+## 另一个构成目录字符串的方法
+可以从京东、淘宝、豆瓣的商品页面找到目录，复制粘贴到outline.txt中，然后调整层级。
+在number.txt中按照顺序输入所有页码，脚本会自动处理他们。
+
+# 使用
+
+参考example.py
+
+页码和pdf页码不一定对应，可以自己修改addtoc函数中的offset参数。
+

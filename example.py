@@ -1,6 +1,8 @@
 from addoutline import addtoc
 
-table_of_contents='''第1部分 数理逻辑 1
+
+# 为离散数学增加目录
+tocstring='''第1部分 数理逻辑 1
  第1章 命题逻辑的基本概念 3
   1.1 命题与联结词 3
   1.2 命题公式及其赋值 9
@@ -30,5 +32,22 @@ table_of_contents='''第1部分 数理逻辑 1
  第19章 初等数论 371'''
 
 
-addtoc(table_of_contents,"离散数学.pdf",9)
+addtoc(tocstring,"离散数学.pdf",offset=9,outputname="离散数学（有目录）.pdf")
+
+
+#为「发现社会 西方社会学思想评述.pdf」增加目录
+
+tocfile=open("outline.txt")
+number=open("number.txt")
+n=number.read().split(" ")
+lines=tocfile.read().split("\n")
+#构造目录字符串
+tocstring=""
+for i in range(len(n)):
+    tocstring=tocstring+lines[i]+' '+n[i]+"\n"
+    print(f"{lines[i]} {n[i]}")
+# table_of_contents=tocfile.read()
+#删除最后一个换行符
+tocstring=tocstring[:-1]
+addtoc(tocstring,"发现社会 西方社会学思想述评.pdf",offset=11,outputname="发现社会 西方社会学思想述评（有目录）.pdf")
 
