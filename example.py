@@ -1,7 +1,9 @@
 from addoutline import addtoc
+import re
 
-
+# 用法1
 # 为离散数学增加目录
+# 直接编写完整的目录字串
 tocstring='''第1部分 数理逻辑 1
  第1章 命题逻辑的基本概念 3
   1.1 命题与联结词 3
@@ -34,20 +36,32 @@ tocstring='''第1部分 数理逻辑 1
 
 addtoc(tocstring,"离散数学.pdf",offset=9,outputname="离散数学（有目录）.pdf")
 
+# 用法2
+# 为「发现社会 西方社会学思想评述.pdf」增加目录
+# outline.txt文件中包含目录
+# number.txt文件中包含页码
 
-#为「发现社会 西方社会学思想评述.pdf」增加目录
-
-tocfile=open("outline.txt")
+tocfile=open("outline.txt",encoding="utf-8")
 number=open("number.txt")
-n=number.read().split(" ")
+#去掉所有的换行和多余一个的空格
+n=number.read()
+n=re.sub("\s+"," ",n)
+n=n.strip("")
+n=n.split(" ")
 lines=tocfile.read().split("\n")
 #构造目录字符串
 tocstring=""
-for i in range(len(n)):
+numberlen=len(n)
+toclen=len(lines)
+if(numberlen!=toclen):
+    print("目录和页码的数量不匹配！")
+    numberlen=min([numberlen,toclen])
+for i in range(numberlen):
     tocstring=tocstring+lines[i]+' '+n[i]+"\n"
     print(f"{lines[i]} {n[i]}")
 # table_of_contents=tocfile.read()
 #删除最后一个换行符
 tocstring=tocstring[:-1]
-addtoc(tocstring,"发现社会 西方社会学思想述评.pdf",offset=11,outputname="发现社会 西方社会学思想述评（有目录）.pdf")
+addtoc(tocstring,"发现社会 西方社会学思想述评.pdf",offset=11,outputname="发现社会 西方社会学思想述评(有目录).pdf")
+
 
