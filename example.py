@@ -40,16 +40,15 @@ addtoc(tocstring,"离散数学.pdf",offset=9,outputname="离散数学（有目�
 # 为「发现社会 西方社会学思想评述.pdf」增加目录
 # outline.txt文件中包含目录
 # number.txt文件中包含页码
-
 tocfile=open("outline.txt",encoding="utf-8")
 number=open("number.txt")
-#去掉所有的换行和多余一个的空格
+#在number.txt去掉所有的换行和多余的空格
 n=number.read()
 n=re.sub("\s+"," ",n)
 n=n.strip("")
 n=n.split(" ")
+#读取outline.txt，按行构造目录字符串
 lines=tocfile.read().split("\n")
-#构造目录字符串
 tocstring=""
 numberlen=len(n)
 toclen=len(lines)

@@ -38,7 +38,7 @@ class toc():
             i.hierarchy(level=level+1)
 
     def add_outline_to_writer(self, writer, parent=None):
-        '''traverse the outline tree, add to a Pdfwriter'''
+        '''traverse the outline tree, add each outlin entry to Pdfwriter'''
         print(f"<{self.name}>")
         if parent == None:
             # root node should be added
